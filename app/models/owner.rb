@@ -12,4 +12,8 @@ class Owner < ActiveRecord::Base
   def has_config_repo?
     config_enabled? && config_repo.present?
   end
+
+  def to_param
+    name
+  end
 end

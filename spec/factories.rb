@@ -31,6 +31,7 @@ FactoryGirl.define do
     github_id
     private false
     in_organization false
+    owner
   end
 
   factory :user do
