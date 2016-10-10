@@ -1,0 +1,18 @@
+var RepoToolsSearch = React.createClass({
+  textChanged: function(evt) {
+    this.props.onSearchInput(evt.target.value);
+  },
+
+  render: function() {
+    return (
+      <div className="repo-tools-search">
+        <input
+          className="repo-search-tools-input"
+          placeholder="<%= I18n.t('search_placeholder') %>"
+          type="text"
+          onChange={this.textChanged}
+        />
+      </div>
+    );
+  }
+});

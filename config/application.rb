@@ -17,5 +17,9 @@ module Houndapp
       "RedirectToConfiguration"
     )
     config.exceptions_app = routes
+
+    config.react.jsx_transform_options = {
+      optional: ['es7.classProperties']
+    }
   end
 end

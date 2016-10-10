@@ -2,8 +2,14 @@
 
 = render 'settings'
 
-- if display_onboarding?
-  = render 'onboarding'
+= react_component('ReposContainer')
+
+%br
+%br
+%hr
+
+-# if display_onboarding?
+  =# render 'onboarding'
 
 %section.organization-list{ 'organization-list' => '' }
 = render 'preload_template', template: 'organization_list'
