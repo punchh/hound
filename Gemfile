@@ -35,6 +35,7 @@ gem "sass-rails"
 gem "split", require: "split/dashboard"
 gem "stripe"
 gem "uglifier", ">= 2.7.2"
+gem "react-rails"
 
 group :staging, :production do
   gem "rack-timeout"
