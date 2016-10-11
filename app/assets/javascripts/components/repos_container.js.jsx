@@ -49,7 +49,10 @@ class ReposContainer extends React.Component {
   activateRepo = (id) => {
     return fetch(`repos/${id}/activation.json`, {
         credentials: "same-origin",
-        method: "post"
+        method: "post",
+        headers: {
+          "X-XSRF-Token": this.props.authenticity_token
+        }
       }
     );
   }
