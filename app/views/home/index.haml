@@ -152,32 +152,59 @@
 
     %article.plans
       .inner-wrapper
-        .plan
-          %h4
-            %i.fa.fa-book
-            Open Source
-          %span.tagline
-            Get higher quality pull requests:
-          .price
-            .dollar-amount
-              %span $0
-              %small /month
+        %h4.plan-category
+          %i.fa.fa-lock
+          Private repos
 
         .plan
-          %h4
-            %i.fa.fa-lock
-            Private Repo
-          %span.tagline
-            Keep your codebase clean:
-          .price
-            .dollar-amount
-              %span $12
-              %small /month
-      %p
-        Email #{mail_to "hound@thoughtbot.com"} for bulk pricing
-        for your GitHub organization.
+          %h5.plan-title
+            Chihuahua
+          .plan-allowance
+            Up to
+            %strong 5
+            Repos
+          .plan-price
+            $49
+            %small month
+
+        .plan
+          %h5.plan-title
+            Labrador
+          .plan-allowance
+            Up to
+            %strong 15
+            Repos
+          .plan-price
+            $99
+            %small month
+
+        .plan
+          %h5.plan-title
+            Great Dane
+          .plan-allowance
+            %strong 40+
+            Repos
+          .plan-price
+            $199
+            %small month
+
+        %h4.plan-category.open-source
+          %i.fa.fa-code-fork
+          Open Source
+
+        .plan.plan-open-source
+          %h5.plan-title
+            Great Dane
+          .plan-allowance
+            Unlimited
+          .plan-price
+            $0
+            %small month
 
       .cta
+        .cta-description
+          Open-source repos are totally free. For private repos we have three tiers, ranging from 5 repos, to infinity.
+
         = render "application/auth_button"
 
 %section.security
