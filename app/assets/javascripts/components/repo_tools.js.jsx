@@ -1,5 +1,5 @@
-var RepoTools = React.createClass({
-  render: function() {
+class RepoTools extends React.Component {
+  render = () => {
     return (
       <div className="repo-tools">
         <RepoToolsSearch onSearchInput={this.props.onSearchInput} />
@@ -15,4 +15,4 @@ var RepoTools = React.createClass({
       </div>
     );
   }
-});
+}

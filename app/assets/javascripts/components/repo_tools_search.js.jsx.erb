@@ -1,9 +1,9 @@
-var RepoToolsSearch = React.createClass({
-  textChanged: function(evt) {
+class RepoToolsSearch extends React.Component {
+  textChanged = (evt) => {
     this.props.onSearchInput(evt.target.value);
-  },
+  }
 
-  render: function() {
+  render = () => {
     return (
       <div className="repo-tools-search">
         <input
@@ -15,4 +15,4 @@ var RepoToolsSearch = React.createClass({
       </div>
     );
   }
-});
+}

@@ -1,5 +1,5 @@
-var RepoToolsRefresh = React.createClass({
-  render: function() {
+class RepoToolsRefresh extends React.Component {
+  render = () => {
     return (
       <div className="repo-tools-refresh">
         {
@@ -16,4 +16,4 @@ var RepoToolsRefresh = React.createClass({
       </div>
     );
   }
-});
+}

@@ -1,17 +1,51 @@
 class ReposContainer extends React.Component {
-  state = {
-    isSyncing: false,
-    includesPrivate: true,
-    filterTerm: null,
-    processing: false
-  };
+  fetchReposAndOrgs = () => {
+    fetch("repos.json", {
+      credentials: "same-origin",
+      headers: {
+        "X-XSRF-Token": this.props.authenticity_token
+      }
+    })
+    .then( (response) => {
+      if (response.ok) {
+        response.json().then( (data) => {
+          this.setState({repos: data});
 
-  activateRepo = id => {
-    return fetch(`repos/${id}/activation`, {method: "post"});
+          organizations = data.map( (repo) => { return repo.owner; });
+          this.setState({organizations: _.uniqWith(organizations, _.isEqual)});
+        });
+      } else {
+        //
+      }
+    })
+    .catch( (error) => {
+      //
+    });
   }
 
-  onRepoClicked = id => {
-    this.setState({processing: true});
+  state = {
+    isSyncing: false,
+    isProcessingId: null,
+    includesPrivate: false,
+    filterTerm: null,
+    repos: [],
+    organizations: []
+  }
+
+  componentWillMount = () => {
+    this.fetchReposAndOrgs();
+  }
+
+  activateRepo = (id) => {
+    return fetch(`repos/${id}/activation.json`, {
+        credentials: "same-origin",
+        method: "post"
+      }
+    );
+  }
+
+  onRepoClicked = (id) => {
+    this.setState({isProcessingId: id});
 
     this.activateRepo(id).then(
       (resp) => {
@@ -24,29 +58,33 @@ class ReposContainer extends React.Component {
       }
     ).then(
       () => {
-        this.setState({processing: false});
+        this.setState({isProcessingId: null});
       }
     )
   }
 
-  onRefreshClicked = evt => {
+  onRefreshClicked = (evt) => {
     this.setState({isSyncing: true});
-    setTimeout( () => {
-      this.setState({isSyncing: false});
-    }, 5000);
+    this.fetchReposAndOrgs();
+    this.setState({isSyncing: false});
   }
 
-  onSearchInput = term => {
+  onPrivateClicked = (evt) => {
+    fetch("/auth/github?access=full", {method: "post"})
+  }
+
+  onSearchInput = (term) => {
     this.setState({filterTerm: term});
   }
 
-  render() {
+  render = () => {
     return (
       <div>
         <RepoTools
-          showPrivateButton={!this.state.includesPrivate}
+          showPrivateButton={!this.props.has_private_access}
           onSearchInput={this.onSearchInput}
           onRefreshClicked={this.onRefreshClicked}
+          onPrivateClicked={this.onPrivateClicked}
           isSyncing={this.state.isSyncing}
         />
         {
@@ -55,9 +93,11 @@ class ReposContainer extends React.Component {
           : null
         }
         <OrganizationsList
+          organizations={this.state.organizations}
+          repos={this.state.repos}
           filterTerm={this.state.filterTerm}
           onRepoClicked={this.onRepoClicked}
-          processing={this.state.processing}
+          isProcessingId={this.state.isProcessingId}
         />
       </div>
     );

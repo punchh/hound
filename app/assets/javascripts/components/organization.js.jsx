@@ -1,21 +1,13 @@
-var Organization = React.createClass({
-  getInitialState: function() {
-    return {
-      repos: [
-        {id:1, name: "aspire"}
-      ]
-    };
-  },
-
-  filterBySearchTerm: function(repo) {
+class Organization extends React.Component {
+  filterBySearchTerm = (repo) => {
     if ( this.props.filterTerm === null) {
       return true;
     } else {
       return (repo.name.indexOf(this.props.filterTerm) !== -1);
     }
-  },
+  }
 
-  render: function() {
+  render = () => {
     return (
       <div className="organization">
         <header className="organization-header">
@@ -23,17 +15,17 @@ var Organization = React.createClass({
         </header>
         <section className="repo_listing">
           <ul className="repos">
-            {this.state.repos.filter(this.filterBySearchTerm).map( (repo) => (
+            {this.props.repos && this.props.repos.filter(this.filterBySearchTerm).map( (repo) => (
               <Repo
-                orgName={this.props.data.name}
                 data={repo}
                 key={repo.id}
                 onRepoClicked={this.props.onRepoClicked}
+                isProcessingId={this.props.isProcessingId}
               />
-            ))}
+            )) || null}
           </ul>
         </section>
       </div>
     );
   }
-});
+}
