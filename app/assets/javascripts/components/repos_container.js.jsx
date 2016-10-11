@@ -23,6 +23,16 @@ class ReposContainer extends React.Component {
     });
   }
 
+  syncReposAndOrgs = () => {
+    return fetch("repo_syncs.json", {
+      credentials: "same-origin",
+      method: "post",
+      headers: {
+        "X-XSRF-Token": this.props.authenticity_token
+      }
+    });
+  }
+
   state = {
     isSyncing: false,
     isProcessingId: null,
@@ -65,8 +75,16 @@ class ReposContainer extends React.Component {
 
   onRefreshClicked = (evt) => {
     this.setState({isSyncing: true});
-    this.fetchReposAndOrgs();
-    this.setState({isSyncing: false});
+    this.syncReposAndOrgs().then( (resp) => {
+      if (resp.ok) {
+        console.log("sync OK!");
+      } else {
+        console.log("sync NOK!");
+        console.log(resp);
+      }
+    }).then( () => {
+      this.setState({isSyncing: false});
+    });
   }
 
   onPrivateClicked = (evt) => {
