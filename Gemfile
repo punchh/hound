@@ -5,8 +5,6 @@ ruby "2.3.1"
 gem "active_model_serializers", "0.9.5"
 gem "administrate", ">= 0.2.0"
 gem "analytics-ruby", "~> 2.0.0", require: "segment/analytics"
-gem "angular_rails_csrf"
-gem "angularjs-rails"
 gem "attr_extras"
 gem "autoprefixer-rails"
 gem "bourbon"
@@ -51,6 +49,7 @@ group :development, :test do
   gem "poltergeist"
   gem "rspec-rails", ">= 3.4"
   gem "bundler-audit", require: false
+  gem "quiet_assets"
 end
 
 group :test do
