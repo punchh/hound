@@ -8,19 +8,21 @@ class Organization extends React.Component {
   }
 
   render = () => {
+    const { data, onRepoClicked, isProcessingId, repos } = this.props;
+
     return (
       <div className="organization">
         <header className="organization-header">
-          <h2 className="organization-header-title">{this.props.data.name}</h2>
+          <h2 className="organization-header-title">{data.name}</h2>
         </header>
         <section className="repo_listing">
           <ul className="repos">
-            {this.props.repos && this.props.repos.filter(this.filterBySearchTerm).map( (repo) => (
+            {repos && repos.filter(this.filterBySearchTerm).map( (repo) => (
               <Repo
                 data={repo}
                 key={repo.id}
-                onRepoClicked={this.props.onRepoClicked}
-                isProcessingId={this.props.isProcessingId}
+                onRepoClicked={onRepoClicked}
+                isProcessingId={isProcessingId}
               />
             )) || null}
           </ul>

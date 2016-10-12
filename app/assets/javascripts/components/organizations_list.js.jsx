@@ -6,17 +6,17 @@ class OrganizationsList extends React.Component {
   }
 
   render = () => {
-
+    const { repos, onRepoClicked, filterTerm, isProcessingId } = this.props;
     return (
       <ul className="organizations">
         {this.props.organizations.map( (org) => (
           <Organization
             data={org}
             key={org.id}
-            repos={(this.props.repos && this.reposForOrg(org)) || null}
-            onRepoClicked={this.props.onRepoClicked}
-            filterTerm={this.props.filterTerm}
-            isProcessingId={this.props.isProcessingId}
+            repos={(repos && this.reposForOrg(org)) || null}
+            onRepoClicked={onRepoClicked}
+            filterTerm={filterTerm}
+            isProcessingId={isProcessingId}
           />
         ))}
       </ul>

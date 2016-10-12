@@ -1,5 +1,6 @@
 class ReposContainer extends React.Component {
   fetchReposAndOrgs = () => {
+    this.setState({isSyncing: true});
     fetch("repos.json", {
       credentials: "same-origin",
       headers: {
@@ -13,6 +14,8 @@ class ReposContainer extends React.Component {
 
           organizations = data.map( (repo) => { return repo.owner; });
           this.setState({organizations: _.uniqWith(organizations, _.isEqual)});
+
+          this.setState({isSyncing: false});
         });
       } else {
         //
@@ -36,7 +39,6 @@ class ReposContainer extends React.Component {
   state = {
     isSyncing: false,
     isProcessingId: null,
-    includesPrivate: false,
     filterTerm: null,
     repos: [],
     organizations: []
@@ -76,17 +78,29 @@ class ReposContainer extends React.Component {
     )
   }
 
+  getUserSyncingStatus = () => {
+    fetch("/user.json", {
+      credentials: "same-origin",
+      headers: {
+        "X-XSRF-Token": this.props.authenticity_token
+      }
+    });
+  }
+
+  waitForUserSyncDone = () => {
+
+  }
+
   onRefreshClicked = (evt) => {
     this.setState({isSyncing: true});
     this.syncReposAndOrgs().then( (resp) => {
       if (resp.ok) {
-        console.log("sync OK!");
+        console.log("sync start OK!");
+        waitForUserSyncDone();
       } else {
-        console.log("sync NOK!");
+        console.log("sync start NOK!");
         console.log(resp);
       }
-    }).then( () => {
-      this.setState({isSyncing: false});
     });
   }
 
@@ -100,9 +114,11 @@ class ReposContainer extends React.Component {
 
   render = () => {
     return (
+      const { has_private_access } = this.props;
+
       <div>
         <RepoTools
-          showPrivateButton={!this.props.has_private_access}
+          showPrivateButton={!has_private_access}
           onSearchInput={this.onSearchInput}
           onRefreshClicked={this.onRefreshClicked}
           onPrivateClicked={this.onPrivateClicked}

@@ -1,16 +1,18 @@
 class RepoTools extends React.Component {
   render = () => {
+    const { onSearchInput, showPrivateButton, isSyncing, onRefreshClicked } = this.props;
+
     return (
       <div className="repo-tools">
-        <RepoToolsSearch onSearchInput={this.props.onSearchInput} />
+        <RepoToolsSearch onSearchInput={onSearchInput} />
         {
-          this.props.showPrivateButton
+          showPrivateButton
           ? <RepoToolsPrivate />
           : null
         }
         <RepoToolsRefresh
-          isSyncing={this.props.isSyncing}
-          onRefreshClicked={this.props.onRefreshClicked}
+          isSyncing={isSyncing}
+          onRefreshClicked={onRefreshClicked}
         />
       </div>
     );

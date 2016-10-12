@@ -1,18 +1,17 @@
 class RepoToolsRefresh extends React.Component {
   render = () => {
+    const { isSyncing, onRefreshClicked } = this.props;
+    const buttonText = isSyncing ? "Loading..." : "Refresh repo list";
+
     return (
       <div className="repo-tools-refresh">
-        {
-          this.props.isSyncing
-          ?
-            <button className="repo-tools-refresh-button" disabled="disabled">
-              <span>Loading...</span>
-            </button>
-          :
-            <button className="repo-tools-refresh-button" onClick={this.props.onRefreshClicked}>
-              <span>Refresh repo list</span>
-            </button>
-          }
+        <button
+          className="repo-tools-refresh-button"
+          disabled={isSyncing ? "disabled" : null}
+          onClick={onRefreshClicked}
+        >
+          <span>{buttonText}</span>
+        </button>
       </div>
     );
   }

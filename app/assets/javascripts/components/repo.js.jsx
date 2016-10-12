@@ -1,16 +1,22 @@
 class Repo extends React.Component {
   render = () => {
-    disabledState = (this.props.isProcessingId === this.props.data.id) ? "disabled" : null;
+    const { isProcessingId, data, onRepoClicked } = this.props;
+
+    const disabledState = (isProcessingId === data.id) ? "disabled" : null;
+    const price = data.price_in_dollars;
+
     return (
       <li className="repo">
-        <div className="repo-name">{this.props.data.full_github_name}</div>
+        <div className="repo-name">{data.full_github_name}</div>
         <div className="repo-activation-toggle repo-activation-toggle--private">
-          <span className="repo-private-label">Private - $12</span>
+          {
+            price > 0
+            ? <span className="repo-private-label">{`Private - $${price}`}</span>
+            : null
+          }
           <button
             className="repo-toggle"
-            onClick={
-              () => this.props.onRepoClicked(this.props.data.id)
-            }
+            onClick={() => onRepoClicked(data.id)}
             disabled={disabledState}
           >
           </button>
