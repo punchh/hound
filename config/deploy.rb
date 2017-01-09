@@ -31,3 +31,15 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
+after 'deploy:publishing', 'deploy:restart'
+
+namespace :deploy do
+  task :restart do
+    invoke 'unicorn:stop'
+    invoke 'unicorn:reload'
+  end
+
+  task :stop do
+    invoke 'unicorn:stop'
+  end
+end

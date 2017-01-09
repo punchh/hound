@@ -17,6 +17,7 @@ require "capistrano/scm/git"
 require 'capistrano/rails'
 require 'capistrano/passenger'
 require 'capistrano/rbenv'
+require 'capistrano3/unicorn'
 
 set :rbenv_type, :user
 set :rbenv_ruby, '2.3.1'
