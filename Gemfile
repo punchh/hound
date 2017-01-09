@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 ruby "2.3.1"
 
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem "active_model_serializers", "0.9.5"
 gem "administrate", ">= 0.2.0"
 gem "analytics-ruby", "~> 2.0.0", require: "segment/analytics"
@@ -36,6 +37,16 @@ gem "sass-rails"
 gem "split", require: "split/dashboard"
 gem "stripe"
 gem "uglifier", ">= 2.7.2"
+gem "marginalia"
+gem 'unicorn'
+
+group :development do
+  gem "quiet_assets"
+  gem 'capistrano', '~> 3.7', '>= 3.7.1'
+  gem 'capistrano-rails', '~> 1.2'
+  gem 'capistrano-passenger', '~> 0.2.0'
+  gem 'capistrano-rbenv', '~> 2.1'
+end
 
 group :staging, :production do
   gem "rack-timeout"
@@ -46,7 +57,6 @@ end
 group :development, :test do
   gem "bundler-audit", require: false
   gem "byebug"
-  gem "dotenv-rails"
   gem "foreman"
   gem "quiet_assets"
   gem "rspec-rails", ">= 3.4"
@@ -54,7 +64,7 @@ end
 
 group :test do
   gem "capybara", "~> 2.4.0"
-  gem "capybara-webkit", "~> 1.6"
+  # gem "capybara-webkit", "~> 1.6"
   gem "database_cleaner"
   gem "factory_girl_rails"
   gem "launchy"

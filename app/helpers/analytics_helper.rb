@@ -1,6 +1,6 @@
 module AnalyticsHelper
   def analytics?
-    Hound::SEGMENT_KEY.present?
+    false
   end
 
   def identify_hash(user = current_user)

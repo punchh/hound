@@ -21,6 +21,7 @@ Resque::Failure::Multiple.classes = [
 Resque::Failure.backend = Resque::Failure::Multiple
 
 Resque::Failure::Sentry.logger = "resque"
+Resque.logger.formatter = Resque::VeryVerboseFormatter.new
 
 Resque::Server.use(Rack::Auth::Basic) do |user, password|
   password == ENV['RESQUE_ADMIN_PASSWORD']
